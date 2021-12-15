@@ -7,7 +7,9 @@
 import app from "../app";
 const debug = require("debug")("todolist:server");
 import http from "http";
-
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
 /**
  * Get port from environment and store in Express.
  */
@@ -79,8 +81,15 @@ function onError(error: any) {
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening() {
+async function onListening() {
   const addr = server.address();
   const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr?.port;
+  const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.jz5pe.mongodb.net/ToDoList?retryWrites=true&w=majority`;
+  try {
+    await mongoose.connect(uri);
+  } catch (err) {
+    server.close();
+    throw err;
+  }
   debug("Listening on " + bind);
 }
