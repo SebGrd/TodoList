@@ -4,7 +4,7 @@ const router = express.Router();
 import User from "../models/user";
 
 /* GET users listing. */
-router.get("/", async (req, res) => {
+router.get("/", async (req: Request, res: Response) => {
   const users = await User.find();
   res.json(users);
 });
@@ -21,11 +21,10 @@ router.post("/", async (req: Request, res: Response) => {
   const error = user.validateSync();
   if (error) {
     res.status(400);
-    res.json(error.message);
-  } else {
-    user.save();
-    res.json(user);
+    return res.json(error.message);
   }
+  user.save();
+  res.json(user);
 });
 
 /* DELETE user. */
