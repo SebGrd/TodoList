@@ -1,18 +1,13 @@
-import User, { UserDocument } from "../../src/models/user";
-import { Error } from "mongoose";
 import dayjs from "dayjs";
+import { Error } from "mongoose";
+import User, { UserDocument } from "../../src/models/User";
+import userMock from "../../__mocks__/user";
 
 describe("User", () => {
   let user: UserDocument;
 
   beforeEach(() => {
-    user = new User({
-      email: "yami@ugi.com",
-      firstname: "yami",
-      lastname: "yugi",
-      password: "password",
-      birthdate: dayjs().subtract(13, "year").toDate(),
-    });
+    user = new User(userMock);
   });
 
   it("should be valid", async () => {
