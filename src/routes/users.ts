@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 const router = express.Router();
 
-import User from "../models/user";
+import User from "../models/User";
 
 /* GET users listing. */
 router.get("/", async (req: Request, res: Response) => {
@@ -17,7 +17,7 @@ router.post("/:id", async (req: Request, res: Response) => {
 
 /* POST user. */
 router.post("/", async (req: Request, res: Response) => {
-  const user = new User(req.body)
+  const user = new User(req.body);
   const error = user.validateSync();
   if (error) {
     res.status(400);
