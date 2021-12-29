@@ -1,21 +1,23 @@
 import { Document, model, Schema } from "mongoose";
 
-export interface todoListItemDocument extends Document {
+export interface TodoListItemDocument extends Document {
   name: string;
   content: string;
   createdAt: Date;
-  todoList: todoListItemDocument;
+  todoList: TodoListItemDocument;
 }
 
-const TodoListItemSchema = new Schema<todoListItemDocument>(
+const TodoListItemSchema = new Schema<TodoListItemDocument>(
   {
     name: {
       type: String,
       unique: true,
+      required: true,
     },
     content: {
       type: String,
       maxlength: [1000, "Content cannot exceed 1000 characters"],
+      required: true,
     },
     todoList: {
       type: Schema.Types.ObjectId,
@@ -26,6 +28,6 @@ const TodoListItemSchema = new Schema<todoListItemDocument>(
   { timestamps: true }
 );
 
-const TodoListItem = model<todoListItemDocument>("TodoListItem", TodoListItemSchema);
+const TodoListItem = model<TodoListItemDocument>("TodoListItem", TodoListItemSchema);
 
 export default TodoListItem;
