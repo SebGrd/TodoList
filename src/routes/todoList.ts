@@ -1,8 +1,8 @@
 import express, { Request, Response } from "express";
 const router = express.Router();
 
-import TodoList from "../models/todoList";
-import User from "../models/user";
+import TodoList from "../models/TodoList";
+import User from "../models/User";
 
 /* GET todoList listing. */
 router.get("/", async (req: Request, res: Response) => {
@@ -36,7 +36,7 @@ router.post("/", async (req: Request, res: Response) => {
     res.status(400);
     return res.json("Provided id didn't match any User");
   }
-  const todoList = new TodoList(req.body)
+  const todoList = new TodoList(req.body);
   const error = todoList.validateSync();
   if (error) {
     res.status(400);

@@ -1,8 +1,8 @@
 import express, { Request, Response } from "express";
 const router = express.Router();
 
-import TodoListItem from "../models/todoListItem";
-import TodoList from "../models/todoList";
+import TodoListItem from "../models/TodoListItem";
+import TodoList from "../models/TodoList";
 
 /* GET TodoListItem listing. */
 router.get("/", async (req: Request, res: Response) => {
@@ -41,7 +41,7 @@ router.post("/", async (req: Request, res: Response) => {
     return res.json("Already existing item with the same title in this TodoList");
   }
 
-  const todoListItem = new TodoListItem(req.body)
+  const todoListItem = new TodoListItem(req.body);
   const error = todoListItem.validateSync();
   if (error) {
     res.status(400);

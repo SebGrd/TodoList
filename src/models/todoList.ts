@@ -1,13 +1,22 @@
-import mongoose from "mongoose";
-const Schema = mongoose.Schema;
-const TodoListSchema = new Schema({
-    userId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Person',
-        required: true,
-        unique: true,
+import { Document, model, Schema } from "mongoose";
+import { UserDocument } from "./User";
+
+export interface TodoListDocument extends Document {
+  user: UserDocument;
+}
+
+const TodoListSchema = new Schema<TodoListDocument>(
+  {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+      unique: true,
     },
-});
-const TodoList = mongoose.model('TodoList', TodoListSchema);
+  },
+  { timestamps: true }
+);
+
+const TodoList = model<TodoListDocument>("TodoList", TodoListSchema);
 
 export default TodoList;

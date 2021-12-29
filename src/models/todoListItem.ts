@@ -1,16 +1,31 @@
-import mongoose from "mongoose";
-const Schema = mongoose.Schema;
-const TodoListItemSchema = new Schema({
-    todoListId: {
-        type: Schema.Types.ObjectId,
-        ref: 'TodoList',
-        required: true,
+import { Document, model, Schema } from "mongoose";
+
+export interface todoListItemDocument extends Document {
+  name: string;
+  content: string;
+  createdAt: Date;
+  todoList: todoListItemDocument;
+}
+
+const TodoListItemSchema = new Schema<todoListItemDocument>(
+  {
+    name: {
+      type: String,
+      unique: true,
     },
-    title: {
-        type: String,
-        unique: true,
+    content: {
+      type: String,
+      maxlength: [1000, "Content cannot exceed 1000 characters"],
     },
-});
-const TodoListItem = mongoose.model('TodoListItem', TodoListItemSchema);
+    todoList: {
+      type: Schema.Types.ObjectId,
+      ref: "TodoList",
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
+const TodoListItem = model<todoListItemDocument>("TodoListItem", TodoListItemSchema);
 
 export default TodoListItem;
