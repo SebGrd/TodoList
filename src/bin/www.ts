@@ -4,12 +4,13 @@
  * Module dependencies.
  */
 
-import app from "../app";
-const debug = require("debug")("todolist:server");
+import dotenv from "dotenv";
 import http from "http";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
+import app from "../app";
+
 dotenv.config();
+
 /**
  * Get port from environment and store in Express.
  */
@@ -87,9 +88,10 @@ async function onListening() {
   const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.jz5pe.mongodb.net/ToDoList?retryWrites=true&w=majority`;
   try {
     await mongoose.connect(uri);
+    console.debug("Connected to the database");
   } catch (err) {
     server.close();
     throw err;
   }
-  debug("Listening on " + bind);
+  console.debug("Listening on port" + bind);
 }
