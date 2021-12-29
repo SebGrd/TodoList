@@ -1,8 +1,9 @@
-import { Document, model, Schema } from "mongoose";
+import { Document, model, Schema, ObjectId } from "mongoose";
 import { UserDocument } from "./User";
 
 export interface TodoListDocument extends Document {
-  user: UserDocument;
+  _id: any;
+  user: ObjectId | string;
 }
 
 const TodoListSchema = new Schema<TodoListDocument>(

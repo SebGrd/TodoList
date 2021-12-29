@@ -93,5 +93,5 @@ async function onListening() {
     server.close();
     throw err;
   }
-  console.debug("Listening on port" + bind);
+  console.debug("Listening on " + bind);
 }
