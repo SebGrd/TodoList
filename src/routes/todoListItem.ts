@@ -1,5 +1,6 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 const router = express.Router();
+import { add } from "../services/todoListItem";
 
 import TodoListItem from "../models/TodoListItem";
 import TodoList from "../models/TodoList";
@@ -17,38 +18,12 @@ router.get("/:id", async (req: Request, res: Response) => {
 });
 
 /* POST TodoListItem. */
-router.post("/", async (req: Request, res: Response) => {
-  const todoListId = req.body.todoListId;
-
-  // If bad ID
-  if (!todoListId.match(/^[0-9a-fA-F]{24}$/)) {
-    res.status(400);
-    return res.json("Wrong syntax for provided id");
+router.post("/", async ({ body }: Request, res: Response, next: NextFunction) => {
+  try {
+    await add(body);
+  } catch (error) {
+    return next(error);
   }
-  // If no existing TodoList
-  const existingTodoList = await TodoList.findById(todoListId);
-  if (!existingTodoList) {
-    res.status(403);
-    return res.json("No existing TodoList with provided id");
-  }
-  // if duplicated
-  const duplicatedTodoListItem = await TodoListItem.findOne({
-    todoListId: todoListId,
-    title: req.body.title,
-  });
-  if (duplicatedTodoListItem) {
-    res.status(403);
-    return res.json("Already existing item with the same title in this TodoList");
-  }
-
-  const todoListItem = new TodoListItem(req.body);
-  const error = todoListItem.validateSync();
-  if (error) {
-    res.status(400);
-    return res.json(error.message);
-  }
-  todoListItem.save();
-  res.json(todoListItem);
 });
 
 /* DELETE todoList. */

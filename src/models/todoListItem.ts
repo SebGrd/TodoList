@@ -1,10 +1,10 @@
-import { Document, model, Schema } from "mongoose";
+import { Document, model, ObjectId, Schema } from "mongoose";
 
 export interface TodoListItemDocument extends Document {
+  _id: any;
   name: string;
   content: string;
-  createdAt: Date;
-  todoList: TodoListItemDocument;
+  todoList: ObjectId | string;
 }
 
 const TodoListItemSchema = new Schema<TodoListItemDocument>(

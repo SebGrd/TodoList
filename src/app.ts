@@ -1,5 +1,5 @@
 import createError from "http-errors";
-import express, {Request, Response, NextFunction, raw} from "express";
+import express, { Request, Response, NextFunction, raw } from "express";
 import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
@@ -12,7 +12,7 @@ import todoListItemRouter from "./routes/todoListItem";
 const app = express();
 
 // Security
-app.disable('x-powered-by');
+app.disable("x-powered-by");
 
 app.use(logger("dev"));
 app.use(express.json());
