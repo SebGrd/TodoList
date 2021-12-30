@@ -14,14 +14,14 @@ Build the image
 docker build -t todo-list .
 ```
 
-Run the container
+Run the container in detached mode
 
 ```bash
-docker run --name todo-list -it todo-list
+docker run --name todo-list -itd todo-list
 ```
 
 ## Run tests
 
 ```bash
-docker exec todo-list npm run test
+docker exec -it todo-list npm run test
 ```
