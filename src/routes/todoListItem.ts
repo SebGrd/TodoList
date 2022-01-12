@@ -3,7 +3,6 @@ const router = express.Router();
 import { add } from "../services/todoListItem";
 
 import TodoListItem from "../models/TodoListItem";
-import TodoList from "../models/TodoList";
 
 /* GET TodoListItem listing. */
 router.get("/", async (req: Request, res: Response) => {

@@ -1,5 +1,4 @@
 import { Document, model, Schema, ObjectId } from "mongoose";
-import { UserDocument } from "./User";
 
 export interface TodoListDocument extends Document {
   _id: any;
