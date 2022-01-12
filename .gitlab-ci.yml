@@ -1,0 +1,17 @@
+default:
+  image: node:16.13.1
+
+stages:
+  - build
+  - test
+
+build-job:
+  stage: build
+  script:
+    - npm install
+    - npx tsc
+
+test-job:
+  stage: test
+  script:
+    - npm run test
